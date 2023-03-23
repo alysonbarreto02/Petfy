@@ -12,7 +12,7 @@ export default function InputBase({
   isPassword?: boolean;
 }) {
   return (
-    <View className="rounded-md px-3 pt-2.5 pb-1.5 shadow-sm border border-cyan-900">
+    <View className="h-16 rounded-md px-3 pt-2.5 pb-1.5 shadow-sm border border-cyan-900">
       <Text className="text-xs font-medium text-gray-900">{title}</Text>
       <TextInput
         className="text-gray-900 placeholder:text-gray-400 "

@@ -1,5 +1,11 @@
 import LoginView from "./src/views/LoginView";
+import { NavigationContainer } from "@react-navigation/native";
+import "./src/api/server";
 
 export default function App() {
-  return <LoginView />;
+  return (
+    <NavigationContainer>
+      <LoginView />
+    </NavigationContainer>
+  );
 }
