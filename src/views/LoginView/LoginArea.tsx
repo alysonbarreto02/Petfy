@@ -15,6 +15,7 @@ export function LoginArea() {
       .catch((error) => {
         console.error(error);
       });
+    console.log(data);
     if (
       data.filter((user) => user.email === email).length > 0 &&
       data.filter((user) => user.password === password).length > 0
