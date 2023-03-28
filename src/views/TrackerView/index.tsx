@@ -1,46 +1,66 @@
-import React, { useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
+
 import MapView, { Marker, Polyline } from "react-native-maps";
-import { View, Text, Image } from "react-native";
+import { View, Text } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 type CoordinatesState = {
+  id: string;
   latitude: number;
   longitude: number;
 }[];
 let trips: CoordinatesState = [];
 
 export default function App() {
-  const [coordinates, setCoordinates] = useState<CoordinatesState | null>(null);
+  const Navigation = useNavigation();
+
+  useLayoutEffect(() => {
+    Navigation.setOptions({
+      headerShown: false,
+    });
+  }, []);
+
+  const [coordinates, setCoordinates] = useState<CoordinatesState>([]);
 
   const verifyTrips = async () => {
-    let data = [{ latitude: "", longitude: "" }];
+    let data: CoordinatesState = [];
+
     await fetch("/api/trips")
       .then((res) => res.json())
       .then((res) => (data = res))
       .catch((error) => {
         console.error(error);
       });
-    data.map((trip) =>
-      trips.push({ latitude: +trip.latitude, longitude: +trip.longitude })
-    );
+
+    data.map((trip) => {
+      trips.filter((tripFiltered) => tripFiltered.id === trip.id).length <= 0 &&
+        trips.push({
+          id: trip.id,
+          latitude: +trip.latitude,
+          longitude: +trip.longitude,
+        });
+    });
     setCoordinates(trips);
   };
-  verifyTrips();
-  console.log(coordinates?.length);
+
+  useEffect(() => {
+    verifyTrips();
+  }, [<View />]);
 
   return (
     <View>
-      {coordinates && (
+      {coordinates.length > 0 && (
         <MapView
           className="w-full h-full"
-          region={{
+          initialRegion={{
             latitude: +coordinates[0].latitude,
             longitude: +coordinates[0].longitude,
             latitudeDelta: 0.0622,
             longitudeDelta: 0.0121,
           }}
         >
-          {coordinates.map((coordinate) => (
-            <Marker coordinate={coordinate} />
+          {coordinates?.map((coordinate) => (
+            <Marker key={coordinate.id} coordinate={coordinate} />
           ))}
           <Polyline
             coordinates={coordinates}

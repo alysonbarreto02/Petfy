@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Text, TouchableHighlight, View } from "react-native";
+import { NavigationStackProp } from "react-navigation-stack";
+
 import InputBase from "../../components/InputBase";
 
-export function LoginArea() {
+export function LoginArea({ navigation }: { navigation: NavigationStackProp }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [enableLogin, setenableLogin] = useState(false);
@@ -15,15 +17,17 @@ export function LoginArea() {
       .catch((error) => {
         console.error(error);
       });
-    console.log(data);
+    console.log(data[0]);
     if (
       data.filter((user) => user.email === email).length > 0 &&
       data.filter((user) => user.password === password).length > 0
     ) {
+      navigation.navigate("Tracker");
       return true;
     }
     return false;
   };
+
   //49.Zulauf@gmail.com bagavaqayo
 
   return (

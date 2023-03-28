@@ -24,7 +24,7 @@ window.server = createServer({
 
   seeds(server) {
     server.createList("user", 50);
-    server.createList("trip", 100);
+    server.createList("trip", 20);
   },
 
   routes() {
