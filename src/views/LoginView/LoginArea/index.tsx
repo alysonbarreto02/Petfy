@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { NavigationStackProp } from "react-navigation-stack";
 
-import InputBase from "../../components/InputBase";
+import InputBase from "../../../components/InputBase";
 
 type UserProps = { id: string; email: string; password: string };
 
@@ -43,13 +43,8 @@ export function LoginArea({ navigation }: { navigation: NavigationStackProp }) {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         className="h-52 justify-between"
       >
-        <InputBase title="E-mail" setState={setEmail} state={email} />
-        <InputBase
-          title="Senha"
-          setState={setPassword}
-          state={password}
-          isPassword={true}
-        />
+        <InputBase title="E-mail" setState={setEmail} />
+        <InputBase title="Senha" setState={setPassword} isPassword={true} />
         <TouchableHighlight
           activeOpacity={0.6}
           underlayColor="#f4aecb"

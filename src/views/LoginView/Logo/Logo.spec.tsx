@@ -2,11 +2,9 @@ import Logo from ".";
 import { render } from "@testing-library/react-native";
 
 describe("Logo", () => {
-  it("case", () => {
+  it("case my component was printed an screen ", () => {
     const { getByTestId } = render(<Logo />);
 
-    const element = getByTestId("Logo");
-
-    expect(element).toBeTruthy();
+    expect(getByTestId("Logo")).toBeTruthy();
   });
 });
