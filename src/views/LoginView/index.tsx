@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
 import { NavigationStackProp } from "react-navigation-stack";
 
 import { useLayoutEffect } from "react";
@@ -21,11 +21,11 @@ export default function LoginView({
   }, []);
 
   return (
-    <View className="bg-cyan-900">
+    <ScrollView className="bg-cyan-900 h-screen flex flex-col">
       <Logo />
-      <View className="bg-white h-full mt-7 rounded-t-3xl p-5">
+      <View className="bg-white mt-20 h-96 rounded-t-3xl p-5">
         <LoginArea navigation={navigation} />
       </View>
-    </View>
+    </ScrollView>
   );
 }

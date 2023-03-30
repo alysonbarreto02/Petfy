@@ -1,8 +1,16 @@
 import { useState } from "react";
-import { Text, TouchableHighlight, View } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  Text,
+  TouchableHighlight,
+  View,
+} from "react-native";
 import { NavigationStackProp } from "react-navigation-stack";
 
 import InputBase from "../../components/InputBase";
+
+type UserProps = { id: string; email: string; password: string };
 
 export function LoginArea({ navigation }: { navigation: NavigationStackProp }) {
   const [email, setEmail] = useState("");
@@ -10,13 +18,14 @@ export function LoginArea({ navigation }: { navigation: NavigationStackProp }) {
   const [enableLogin, setenableLogin] = useState(false);
 
   const verifyUsers = async () => {
-    let data = [{ id: "", email: "", password: "" }];
+    let data: UserProps[] = [];
     await fetch("/api/users")
       .then((res) => res.json())
       .then((res) => (data = res))
       .catch((error) => {
         console.error(error);
       });
+    //para saber um usuário para poder fazer login
     console.log(data[0]);
     if (
       data.filter((user) => user.email === email).length > 0 &&
@@ -28,11 +37,12 @@ export function LoginArea({ navigation }: { navigation: NavigationStackProp }) {
     return false;
   };
 
-  //49.Zulauf@gmail.com bagavaqayo
-
   return (
     <View>
-      <View className="h-52 justify-between">
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        className="h-52 justify-between"
+      >
         <InputBase title="E-mail" setState={setEmail} state={email} />
         <InputBase
           title="Senha"
@@ -50,7 +60,7 @@ export function LoginArea({ navigation }: { navigation: NavigationStackProp }) {
         >
           <Text className="text-white text-base">Entrar</Text>
         </TouchableHighlight>
-      </View>
+      </KeyboardAvoidingView>
       <View className="justify-center flex flex-row space-x-1 mt-8">
         <Text>Não possui conta?</Text>
         <TouchableHighlight
