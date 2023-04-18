@@ -1,3 +1,4 @@
+import InputBase from "@components/InputBase";
 import { useState } from "react";
 import {
   KeyboardAvoidingView,
@@ -7,8 +8,6 @@ import {
   View,
 } from "react-native";
 import { NavigationStackProp } from "react-navigation-stack";
-
-import InputBase from "../../../components/InputBase";
 
 type UserProps = { id: string; email: string; password: string };
 
